@@ -1,6 +1,7 @@
 package com.example.amrarafa.zgo.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,29 +16,47 @@ import java.util.regex.Pattern;
 public class RegistrationActivity extends AppCompatActivity {
 
     EditText emailEditText;
+    EditText username;
+    EditText password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registration);
         emailEditText=(EditText)findViewById(R.id.email_edittext);
+        username=(EditText)findViewById(R.id.username_edittext);
+        password=(EditText)findViewById(R.id.password_edittext);
+
+
+
     }
 
     public void register(View view){
 
-        if (isEmailValid(emailEditText.getText().toString())){
+        if (  !(isEmailValid(emailEditText.getText().toString()))|| username.getText().toString().equals("")
+                || password.getText().toString().equals("")){
 
-            //check if user already exist
-            //check if user name and password are not empty
 
-            Intent intent= new Intent(RegistrationActivity.this,MapNavigationActivity.class);
-            startActivity(intent);
 
+
+            Toast.makeText(this,"Wrong input!!",Toast.LENGTH_SHORT).show();
 
 
         }
         else{
-            //invalid email
-            Toast.makeText(this,"Invalid Email!!",Toast.LENGTH_SHORT).show();
+
+            //check if user already exist
+            //check if user name and password are not empty
+
+
+            Intent intent= new Intent(RegistrationActivity.this,MapNavigationActivity.class);
+            SharedPreferences preferences= getApplicationContext().getSharedPreferences("mypref",MODE_PRIVATE);
+            SharedPreferences.Editor editor= preferences.edit();
+            editor.putString("username",username.getText().toString());
+            editor.putString("email",emailEditText.getText().toString());
+            editor.commit();
+            startActivity(intent);
+
         }
 
     }

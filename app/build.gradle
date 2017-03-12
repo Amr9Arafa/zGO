@@ -1,26 +1,41 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        signed {
+            keyAlias 'zgokey'
+            keyPassword 'arafa789amr'
+            storeFile file('E:/Amr Arafa/Career Bgd/Keystores/zgoKeystore.jks')
+            storePassword 'arafa789amr'
+        }
+    }
     compileSdkVersion 25
     buildToolsVersion "24.0.1"
-
     defaultConfig {
         applicationId "com.example.amrarafa.zgo"
         minSdkVersion 15
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        signingConfig signingConfigs.signed
     }
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.signed
+            debuggable true
         }
+        debug {
+            signingConfig signingConfigs.signed
+        }
+    }
+    productFlavors {
     }
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
@@ -30,5 +45,4 @@ dependencies {
     compile 'com.google.code.gson:gson:1.7.2'
     compile 'com.squareup.retrofit:converter-gson:2.0.0-beta2'
     compile 'com.squareup.okhttp:okhttp:2.4.0'
-
 }

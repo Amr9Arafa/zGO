@@ -2,7 +2,7 @@
     <string name="app_name">zGO</string>
     <string name="upload_image">upload image</string>
     <string name="register">Register</string>
-    <string name="sign_in">Sign In</string>
+    <string name="sign_in"><u> Sign In </u></string>
     <string name="remeber_me">Remeber me ?</string>
     <string name="title_activity_map_navigation">MapNavigationActivity</string>
 

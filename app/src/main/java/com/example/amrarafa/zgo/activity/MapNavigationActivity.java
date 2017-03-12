@@ -1,5 +1,6 @@
 package com.example.amrarafa.zgo.activity;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.example.amrarafa.zgo.R;
 import com.example.amrarafa.zgo.fragment.HistoryFragment;
@@ -16,6 +19,9 @@ import com.example.amrarafa.zgo.fragment.MapsFragment;
 
 public class MapNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    TextView usernametv;
+    TextView emailtv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +39,15 @@ public class MapNavigationActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        View headerLayout = navigationView.getHeaderView(0);
+        usernametv= (TextView) headerLayout.findViewById(R.id.username_textview);
+        emailtv=(TextView)headerLayout.findViewById(R.id.email_textview);
+
+        SharedPreferences preferences=getApplicationContext().getSharedPreferences("mypref",MODE_PRIVATE);
+        usernametv.setText(preferences.getString("username","Amr"));
+        emailtv.setText(preferences.getString("email","Amr@gmail.com"));
+
 
         MapsFragment fragment= new MapsFragment();
         getFragmentManager().beginTransaction().replace(R.id.frame,fragment).commit();
